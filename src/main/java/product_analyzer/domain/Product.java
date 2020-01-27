@@ -21,6 +21,9 @@ class Laptop extends Product {
     }
 }
 
+//todo: create a AppleLaptop class that extends Laptop class
+//   add one AppleLaptop specific property (boon isSpaceGrey)
+
 class Phone extends Product {
     public String brand; // apple
 
