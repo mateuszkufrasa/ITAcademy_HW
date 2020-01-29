@@ -1,21 +1,22 @@
 package product_analyzer.domain;
 
-import java.util.ArrayList;
-
 public class Product {
     public String name; // laptop
     public Double price; // 1000
     public Double weight; // 2.0
     public WeightType weightType; // KG
 
-    public Product() {
-    }
+    //todo: [optional] constructor that has name
 }
 
 class Laptop extends Product {
+    private boolean hasSsd;
+
     public Laptop(String name) {
-        this.name = name;
+        this.name = name; //todo: [optional] call parent constructor
     }
+
+    //todo: add a constructor that accepts name and hasSsd
 }
 
 class Phone extends Product {
@@ -40,6 +41,7 @@ class LaptopCollection {
             throw new RuntimeException("not supported index [" + index + "]");
         }
     }
+
     public Laptop get(int index) {
         if (index == 1) {
             return this.laptop1;
@@ -78,6 +80,7 @@ class PhoneCollection {
             throw new RuntimeException("not supported index [" + index + "]");
         }
     }
+
     public Phone get(int index) {
         if (index == 1) {
             return this.phone1;
@@ -102,7 +105,7 @@ class PhoneCollection {
 
 //todo: create a generic version of PhoneCollection and LaptopCollection
 
-class MyApp {
+class MyApp2 {
     public static void main(String[] args) {
         //todo: use that generic class here
 
