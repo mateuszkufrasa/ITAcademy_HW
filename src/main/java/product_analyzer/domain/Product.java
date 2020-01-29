@@ -9,10 +9,10 @@ interface WithPrice {
 }
 
 interface Label {
-    String toLabel(); // "<name> <price> <wight> <type>" e.g. "iPhone 200 0.2 KG"
+    String toLabel();
 }
 
-public class Product implements CanDescribe, WithPrice { //todo: implement Label
+public class Product implements CanDescribe, WithPrice, Label { //todo: implement Label
     public String name; // laptop
     public Double price; // 1000
     public Double weight; // 2.0
@@ -31,10 +31,15 @@ public class Product implements CanDescribe, WithPrice { //todo: implement Label
     public Double getPrice() {
         return this.price;
     }
+
+    @Override
+    public String toLabel() {
+        return this.name + "   " + this.price + "   " + this.weight + "   " + this.weightType;
+    }
 }
 
 class Laptop extends Product implements CanDescribe, WithPrice {
-    public  boolean hasSsd;
+    public boolean hasSsd;
 
     public Laptop(String name) {
         super(name);
@@ -43,15 +48,55 @@ class Laptop extends Product implements CanDescribe, WithPrice {
 
 class App {
     public static void main(String[] args) {
-        Laptop laptop = new Laptop("Lenovo");
-        Product laptopAsAProduct = new Laptop("Lenovo");
+        Thread secondThread = new AnotherEngine();
+        secondThread.setName("engine-2");
+        secondThread.start();
+        Thread thirdThread = new AnotherEngine();
+        thirdThread.setName("engine-3");
+        thirdThread.start();
 
-        CanDescribe describable = laptop;
-        describable.describe();
+        waitFor5Sec();
 
         //todo: create a Label variable and assign new instance of Product, then use this variable to print to a console
+        Product laptop = new Product("ASUS1");
+        laptop.price = 1000.0;
+        laptop.weight = 2.2;
+        laptop.weightType = WeightType.KG;
+        Label label1 = laptop;
 
+        System.out.println(laptop.toLabel());
     }
+
+    static class AnotherEngine extends Thread {
+
+        @Override
+        public void run() {
+            AnotherEngine.printHello();
+        }
+
+        public static void printHello() {
+            for (int i = 0; i < 10; i++) {
+                System.out.println("> Hello #" + i);
+                waitFor1Sec();
+            }
+        }
+    }
+
+    private static void waitFor1Sec() {
+        try {
+            Thread.sleep(1_000);
+        } catch (InterruptedException e) {
+        }
+    }
+    private static void waitFor5Sec() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+        }
+    }
+
+
+
 }
 
 
