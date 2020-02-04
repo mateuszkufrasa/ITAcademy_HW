@@ -1,7 +1,10 @@
 package product_analyzer.domain;
 
+import java.util.ArrayList;
+
 //todo: create a generic version of PhoneCollection and LaptopCollection
 public class ProductCollection <T extends Product> {
+
     private T product1;
     private T product2;
     private T product3;
